@@ -1,0 +1,11 @@
+在当前项目中实现一个 TypeScript `AsyncTtlCache<K, V>`，文件必须是 `src/async-ttl-cache.ts`，并从 `src/index.ts` 导出。
+
+API：
+- `new AsyncTtlCache({ ttlMs, maxEntries, now? })`，其中 `now` 是可选的毫秒时钟函数；非法的 `ttlMs` 或 `maxEntries` 必须抛出异常。
+- `get(key, loader)` 返回缓存值；同一 key 的并发未完成请求必须共用一次 loader。
+- 成功值按 TTL 缓存；失败的 loader 不缓存；过期条目不能返回。
+- 达到容量时按 LRU 淘汰，缓存命中应刷新 LRU 顺序。
+- 提供 `delete(key): boolean`、`clear(): void` 和只读 `size`。
+- `delete` 或 `clear` 发生在 loader 未完成期间时，该 loader 可以完成当前调用，但不得重新填充已失效的缓存。
+
+项目已经提供基础单元测试。请只实现源码，不要新增或修改测试文件；运行现有测试和 TypeScript 类型检查，二者通过后立即给出简短结果并停止，不要继续做额外重构。只修改当前项目。

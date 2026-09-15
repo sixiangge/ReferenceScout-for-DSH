@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-09-15T08:34:00.761Z",
+  "task": "在当前项目中实现一个 TypeScript `AsyncTtlCache<K, V>`，文件必须是 `src/async-ttl-cache.ts`，并从 `src/index.ts` 导出。\n\nAPI：\n- `new AsyncTtlCache({ ttlMs, maxEntries, now? })`，其中 `now` 是可选的毫秒时钟函数；非法的 `ttlMs` 或 `maxEntries` 必须抛出异常。\n- `get(key, loader)` 返回缓存值；同一 key 的并发未完成请求必须共用一次 loader。\n- 成功值按 TTL 缓存；失败的 loader 不缓存；过期条目不能返回。\n- 达到容量时按 LRU 淘汰，缓存命中应刷新 LRU 顺序。\n- 提供 `delete(key): boolean`、`clear(): void` 和只读 `size`。\n- `delete` 或 `clear` 发生在 loader 未完成期间时，该 loader 可以完成当前调用，但不得重新填充已失效的缓存。\n\n项目已经提供基础单元测试。请只实现源码，不要新增或修改测试文件；运行现有测试和 TypeScript 类型检查，二者通过后立即给出简短结果并停止，不要继续做额外重构。只修改当前项目。",
+  "completionTimeoutMs": 240000,
+  "results": [
+    {
+      "name": "baseline",
+      "profile": "rs-bench-base",
+      "dshExitCode": 0,
+      "stopReason": "tests-and-typecheck-passed",
+      "elapsedMs": 226169,
+      "ownTests": {
+        "exitCode": 0,
+        "passed": 11,
+        "failed": 0,
+        "total": 11
+      },
+      "hiddenTests": {
+        "exitCode": 1,
+        "passed": 9,
+        "failed": 1,
+        "total": 10
+      },
+      "typecheckExitCode": 0,
+      "tokens": {
+        "uncachedInput": 38896,
+        "cacheRead": 822523,
+        "cacheWrite": 0,
+        "output": 38916
+      },
+      "turns": 1,
+      "steps": 18,
+      "sessionProjection": "C:\\Users\\25153\\.dsh\\storages\\session_projcache\\sessions\\session-d630b54f-efa8-4fce-8dc3-be490c65fb41.json",
+      "referenceScoutObserved": false,
+      "referenceResearchStatus": "not-observed",
+      "finalResponseChars": 2542,
+      "hiddenTestOutput": "{\"numTotalTestSuites\":2,\"numPassedTestSuites\":0,\"numFailedTestSuites\":2,\"numPendingTestSuites\":0,\"numTotalTests\":10,\"numPassedTests\":9,\"numFailedTests\":1,\"numPendingTests\":0,\"numTodoTests\":0,\"snapshot\":{\"added\":0,\"failure\":false,\"filesAdded\":0,\"filesRemoved\":0,\"filesRemovedList\":[],\"filesUnmatched\":0,\"filesUpdated\":0,\"matched\":0,\"total\":0,\"unchecked\":0,\"uncheckedKeysByFile\":[],\"unmatched\":0,\"updated\":0,\"didUpdate\":false},\"startTime\":1789461096746,\"success\":false,\"testResults\":[{\"assertionResults\":[{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance rejects invalid options\",\"status\":\"failed\",\"title\":\"rejects invalid options\",\"duration\":10.960300000000018,\"failureMessages\":[\"AssertionError: expected [Function] to throw an error\\n    at Proxy.<anonymous> (file:///E:/dshAddons/1/benchmarks/quality-ab/baseline/node_modules/.pnpm/@vitest+expect@4.1.8/node_modules/@vitest/expect/dist/index.js:1552:16)\\n    at Proxy.<anonymous> (file:///E:/dshAddons/1/benchmarks/quality-ab/baseline/node_modules/.pnpm/@vitest+expect@4.1.8/node_modules/@vitest/expect/dist/index.js:1156:15)\\n    at Proxy.methodWrapper (file:///E:/dshAddons/1/benchmarks/quality-ab/baseline/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)\\n    at E:/dshAddons/1/benchmarks/quality-ab/baseline/tests/async-ttl-cache.hidden.spec.ts:13:66\\n    at file:///E:/dshAddons/1/benchmarks/quality-ab/baseline/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\\n    at file:///E:/dshAddons/1/benchmarks/quality-ab/baseline/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26\\n    at file:///E:/dshAddons/1/benchmarks/quality-ab/baseline/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20\\n    at new Promise (<anonymous>)\\n    at runWithCancel (file:///E:/dshAddons/1/benchmarks/quality-ab/baseline/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)\\n    at file:///E:/dshAddons/1/benchmarks/quality-ab/baseline/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20\"],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance caches a fulfilled value within its TTL\",\"status\":\"passed\",\"title\":\"caches a fulfilled value within its TTL\",\"duration\":3.164699999999982,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance reloads an expired value\",\"status\":\"passed\",\"title\":\"reloads an expired value\",\"duration\":0.5960000000000036,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance deduplicates concurrent loads for the same key\",\"status\":\"passed\",\"title\":\"deduplicates concurrent loads for the same key\",\"duration\":1.093999999999994,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance does not cache loader failures\",\"status\":\"passed\",\"title\":\"does not cache loader failures\",\"duration\":1.255899999999997,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance evicts the least recently used entry\",\"status\":\"passed\",\"title\":\"evicts the least recently used entry\",\"duration\":0.6757000000000062,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance refreshes LRU order on a cache hit\",\"status\":\"passed\",\"title\":\"refreshes LRU order on a cache hit\",\"duration\":0.5966999999999985,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance supports delete and clear\",\"status\":\"passed\",\"title\":\"supports delete and clear\",\"duration\":0.4492000000000189,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance does not repopulate after delete during an in-flight load\",\"status\":\"passed\",\"title\":\"does not repopulate after delete during an in-flight load\",\"duration\":0.7778000000000134,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance does not repopulate any key after clear during in-flight loads\",\"status\":\"passed\",\"title\":\"does not repopulate any key after clear during in-flight loads\",\"duration\":0.33049999999997226,\"failureMessages\":[],\"meta\":{},\"tags\":[]}],\"startTime\":1789461097114,\"endTime\":1789461097134.3306,\"status\":\"failed\",\"message\":\"\",\"name\":\"E:/dshAddons/1/benchmarks/quality-ab/baseline/tests/async-ttl-cache.hidden.spec.ts\"}]}\n",
+      "hiddenTestError": "",
+      "typecheckOutput": "$ tsc --noEmit\n"
+    },
+    {
+      "name": "with-plugin",
+      "profile": "rs-bench-scout",
+      "dshExitCode": 0,
+      "stopReason": "tests-and-typecheck-passed",
+      "elapsedMs": 135136,
+      "ownTests": {
+        "exitCode": 0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4
+      },
+      "hiddenTests": {
+        "exitCode": 1,
+        "passed": 8,
+        "failed": 2,
+        "total": 10
+      },
+      "typecheckExitCode": 0,
+      "tokens": {
+        "uncachedInput": 11129,
+        "cacheRead": 285184,
+        "cacheWrite": 0,
+        "output": 23804
+      },
+      "turns": 1,
+      "steps": 11,
+      "sessionProjection": "C:\\Users\\25153\\.dsh\\storages\\session_projcache\\sessions\\session-c4291241-d646-4902-8879-cc7a0256038c.json",
+      "referenceScoutObserved": true,
+      "referenceResearchStatus": "observed",
+      "finalResponseChars": 0,
+      "hiddenTestOutput": "{\"numTotalTestSuites\":2,\"numPassedTestSuites\":0,\"numFailedTestSuites\":2,\"numPendingTestSuites\":0,\"numTotalTests\":10,\"numPassedTests\":8,\"numFailedTests\":2,\"numPendingTests\":0,\"numTodoTests\":0,\"snapshot\":{\"added\":0,\"failure\":false,\"filesAdded\":0,\"filesRemoved\":0,\"filesRemovedList\":[],\"filesUnmatched\":0,\"filesUpdated\":0,\"matched\":0,\"total\":0,\"unchecked\":0,\"uncheckedKeysByFile\":[],\"unmatched\":0,\"updated\":0,\"didUpdate\":false},\"startTime\":1789461238084,\"success\":false,\"testResults\":[{\"assertionResults\":[{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance rejects invalid options\",\"status\":\"failed\",\"title\":\"rejects invalid options\",\"duration\":9.805800000000033,\"failureMessages\":[\"AssertionError: expected [Function] to throw an error\\n    at Proxy.<anonymous> (file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/@vitest+expect@4.1.8/node_modules/@vitest/expect/dist/index.js:1552:16)\\n    at Proxy.<anonymous> (file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/@vitest+expect@4.1.8/node_modules/@vitest/expect/dist/index.js:1156:15)\\n    at Proxy.methodWrapper (file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)\\n    at E:/dshAddons/1/benchmarks/quality-ab/with-plugin/tests/async-ttl-cache.hidden.spec.ts:13:66\\n    at file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\\n    at file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26\\n    at file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20\\n    at new Promise (<anonymous>)\\n    at runWithCancel (file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)\\n    at file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20\"],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance caches a fulfilled value within its TTL\",\"status\":\"passed\",\"title\":\"caches a fulfilled value within its TTL\",\"duration\":2.7726000000000113,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance reloads an expired value\",\"status\":\"passed\",\"title\":\"reloads an expired value\",\"duration\":0.5478999999999701,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance deduplicates concurrent loads for the same key\",\"status\":\"failed\",\"title\":\"deduplicates concurrent loads for the same key\",\"duration\":1.524000000000001,\"failureMessages\":[\"AssertionError: expected \\\"vi.fn()\\\" to be called 1 times, but got 0 times\\n    at E:/dshAddons/1/benchmarks/quality-ab/with-plugin/tests/async-ttl-cache.hidden.spec.ts:41:20\\n    at file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:302:11\\n    at file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:26\\n    at file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2326:20\\n    at new Promise (<anonymous>)\\n    at runWithCancel (file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2323:10)\\n    at file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2305:20\\n    at new Promise (<anonymous>)\\n    at runWithTimeout (file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2272:10)\\n    at file:///E:/dshAddons/1/benchmarks/quality-ab/with-plugin/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2955:64\"],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance does not cache loader failures\",\"status\":\"passed\",\"title\":\"does not cache loader failures\",\"duration\":1.308300000000031,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance evicts the least recently used entry\",\"status\":\"passed\",\"title\":\"evicts the least recently used entry\",\"duration\":0.6698000000000093,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance refreshes LRU order on a cache hit\",\"status\":\"passed\",\"title\":\"refreshes LRU order on a cache hit\",\"duration\":0.7696000000000254,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance supports delete and clear\",\"status\":\"passed\",\"title\":\"supports delete and clear\",\"duration\":0.4533000000000129,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance does not repopulate after delete during an in-flight load\",\"status\":\"passed\",\"title\":\"does not repopulate after delete during an in-flight load\",\"duration\":0.7156999999999698,\"failureMessages\":[],\"meta\":{},\"tags\":[]},{\"ancestorTitles\":[\"AsyncTtlCache hidden acceptance\"],\"fullName\":\"AsyncTtlCache hidden acceptance does not repopulate any key after clear during in-flight loads\",\"status\":\"passed\",\"title\":\"does not repopulate any key after clear during in-flight loads\",\"duration\":0.41800000000000637,\"failureMessages\":[],\"meta\":{},\"tags\":[]}],\"startTime\":1789461238574,\"endTime\":1789461238593.7158,\"status\":\"failed\",\"message\":\"\",\"name\":\"E:/dshAddons/1/benchmarks/quality-ab/with-plugin/tests/async-ttl-cache.hidden.spec.ts\"}]}\n",
+      "hiddenTestError": "",
+      "typecheckOutput": "$ tsc --noEmit\n"
+    }
+  ]
+}
