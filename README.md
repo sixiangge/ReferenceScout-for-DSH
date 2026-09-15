@@ -44,8 +44,6 @@ pnpm dlx @deepseek-ai/dsh web
 pnpm dlx @deepseek-ai/dsh plugin --profile web add dsh-reference-scout@0.1.0
 ```
 
-请将 `0.1.0` 替换为已发布的真实版本。发布所需的 npm 包快照、GitHub 源码快照和操作说明可由 `pnpm run stage:release` 生成到 `release/`。
-
 随后重启该 DSH Web profile 并刷新浏览器。打开 **Settings → Plugins → Reference Scout**，可直接编辑自动触发、suggest/strict 模式、意图排除、GitHub 预算、许可证、网络、证据和缓存设置。会话出现研究记录后，可从会话头的“参考研究”入口打开右侧面板。
 
 ## 配置
