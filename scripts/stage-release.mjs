@@ -57,7 +57,8 @@ const npmGuide = `# npm 公共仓库发布包\n\n这个目录由 \`pnpm run stag
 await writeFile(join(npmPackage, 'PUBLISH.md'), npmGuide)
 
 const githubGuide = `# GitHub 源码仓库快照\n\n这个目录由 \`pnpm run stage:release\` 生成，包含源码、测试、锁文件、CI 工作流及 Git 忽略规则；不包含 \`node_modules\`、构建输出、测试截图和发布快照。\n\n推荐在项目根目录初始化并推送 Git 仓库，因为根目录才是后续持续开发的唯一来源。若需要交付一份独立源码快照，则可在本目录执行以下操作。\n\n## 推送到 GitHub\n\n1. 在 GitHub 网站创建一个**空仓库**；不要勾选 README、.gitignore 或 License，避免首次推送冲突。\n2. 在此目录执行：\n\n\`git init\`\n\n\`git add .\`\n\n\`git commit -m "feat: initial Reference Scout release"\`\n\n\`git branch -M main\`\n\n\`git remote add origin https://github.com/<OWNER>/<REPOSITORY>.git\`\n\n\`git push -u origin main\`\n\n3. 发布版本时，更新根目录版本并重新生成快照；推送对应提交后执行：\n\n\`git tag v0.1.0\`\n\n\`git push origin v0.1.0\`\n\n然后可在 GitHub 的 Releases 页面基于该 tag 创建 Release。\n\n## CI\n\n\`.github/workflows/ci.yml\` 会在推送到 \`main\` 及 Pull Request 时运行 \`pnpm run check\`。\n`
-await writeFile(join(githubRepository, 'PUSH.md'), githubGuide)
+// The GitHub snapshot is the public repository itself; keep local push instructions out of it.
+void githubGuide
 
 const overview = `# 发布目录\n\n- \`ReferenceScout for DSH - npm/\`：可直接提交给 npm 的最小包内容；说明见该目录内的 \`PUBLISH.md\`。\n- \`ReferenceScout for DSH - GitHub/\`：可独立初始化 Git 仓库的源码快照；说明见该目录内的 \`PUSH.md\`。\n\n这两个目录均为生成产物，源码修改或版本变更后请在项目根目录重新执行：\n\n\`pnpm run stage:release\`\n`
 await writeFile(join(release, 'README.md'), overview)
